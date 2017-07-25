@@ -1,0 +1,140 @@
+{% if cookiecutter.use_python3 == 'y' -%}
+# Wheel 0.25+ needed to install certain packages on CPython 3.5+
+# like Pillow and psycopg2
+# See http://bitly.com/wheel-building-fails-CPython-35
+# Verified bug on Python 3.5.1
+wheel==0.29.0
+{%- endif %}
+
+# Bleeding edge Django
+django==1.9
+
+# Configuration
+django-environ==0.4.0
+{% if cookiecutter.use_whitenoise == 'y' -%}
+whitenoise==3.2.1
+{%- endif %}
+
+
+# Forms
+django-braces==1.9.0
+django-crispy-forms==1.6.0
+django-floppyforms==1.7.0
+
+# Models
+django-model-utils==2.5.2
+
+# Images
+Pillow==3.3.1
+
+# For user registration, either via email or social
+# Well-built with regular release cycles!
+django-allauth==0.27.0
+
+{% if cookiecutter.windows == 'y' -%}
+# On Windows, you must download/install psycopg2 manually
+# from http://www.lfd.uci.edu/~gohlke/pythonlibs/#psycopg
+{% else %}
+# Python-PostgreSQL Database Adapter
+psycopg2==2.6.2
+{%- endif %}
+
+# Unicode slugification
+unicode-slugify==0.1.3
+django-autoslug==1.9.3
+
+# Time zones support
+pytz==2016.6.1
+
+# Redis support
+django-redis==4.4.4
+redis>=2.10.0
+
+{% if cookiecutter.use_celery == "y" %}
+celery==3.1.23
+{% endif %}
+
+{% if cookiecutter.use_compressor == "y" %}
+rcssmin==1.0.6 {% if cookiecutter.windows == 'y' %}--install-option="--without-c-extensions"{% endif %}
+django-compressor==2.1
+{% endif %}
+
+{% if cookiecutter.js_task_runner == 'Webpack' -%}
+# Webpack
+django-webpack-loader==0.3.3
+{%- endif %}
+
+# Your custom requirements go here
+# Local development dependencies go here
+-r base.txt
+coverage==4.2
+django-coverage-plugin==1.3.1
+Sphinx==1.4.6
+django-extensions==1.7.3
+Werkzeug==0.11.11
+django-test-plus==1.0.15
+factory_boy==2.7.0
+django-debug-toolbar==1.5
+
+# improved REPL
+ipdb==0.10.1
+
+pytest-django==3.0.0
+pytest-sugar==0.7.1
+# Pro-tip: Try not to put anything here. Avoid dependencies in
+#	production that aren't in development.
+-r base.txt
+
+{% if cookiecutter.windows == 'y' -%}
+# Python-PostgreSQL Database Adapter
+# If using Win for dev, this assumes Unix in prod
+# ------------------------------------------------
+psycopg2==2.6.2
+{%- endif %}
+
+# WSGI Handler
+# ------------------------------------------------
+gevent==1.1.2
+gunicorn==19.6.0
+
+# Static and Media Storage
+# ------------------------------------------------
+boto==2.42.0
+django-storages-redux==1.3.2
+{% if cookiecutter.use_whitenoise != 'y' -%}
+Collectfast==0.2.3
+{%- endif %}
+
+# Email backends for Mailgun, Postmark, SendGrid and more
+# -------------------------------------------------------
+django-anymail==0.5
+
+{% if cookiecutter.use_sentry_for_error_reporting == "y" -%}
+# Raven is the Sentry client
+# --------------------------
+raven==5.26.0
+{%- endif %}
+
+{% if cookiecutter.use_opbeat == "y" -%}
+# Opbeat agent for performance monitoring
+# -----------------------------------------
+opbeat==3.4.0
+{%- endif %}
+# Test dependencies go here.
+-r base.txt
+
+{% if cookiecutter.windows == 'y' -%}
+# Python-PostgreSQL Database Adapter
+# If using Win for dev, this assumes Unix in test/prod
+psycopg2==2.6.2
+{%- endif %}
+
+coverage==4.2
+django-coverage-plugin==1.3.1
+flake8==3.0.4 # pyup: != 2.6.0
+django-test-plus==1.0.15
+factory_boy==2.7.0
+
+# pytest
+pytest-django==3.0.0
+pytest-sugar==0.7.1
